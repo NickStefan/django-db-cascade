@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='django-db-cascade',
@@ -8,7 +8,7 @@ setup(
     author='Nick Stefan',
     author_email='nickstefan12@gmail.com',
     license='MIT',
-    packages=['django_db_cascade'],
+    packages=find_packages(),
     install_requires=[
         'Django >= 1.8',
         'psycopg2 >= 2.5'
