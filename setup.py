@@ -8,7 +8,7 @@ setup(
     author='Nick Stefan',
     author_email='nickstefan12@gmail.com',
     license='MIT',
-    packages=['django-db-cascade'],
+    packages=['django_db_cascade'],
     install_requires=[
         'Django >= 1.8',
         'psycopg2 >= 2.5'
