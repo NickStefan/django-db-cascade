@@ -18,7 +18,7 @@ class DatabaseSchemaEditor(DSE):
             "to_table": to_table,
             "to_column": to_column,
         }
-        print(self.sql_cascade, dir(field))
+        print(self.sql_cascade, dir(field), field.__class__, field.target_field.__class__)
 
         return self.sql_create_fk % {
             "table": self.quote_name(from_table),
