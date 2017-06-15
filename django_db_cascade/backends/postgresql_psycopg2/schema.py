@@ -19,9 +19,6 @@ class DatabaseSchemaEditor(DSE):
             "to_column": to_column,
         }
 
-        if getattr(field, 'db_cascade', False):
-            print(self.sql_cascade)
-
         try:
             print(field.db_cascade)
             print(self.sql_cascade)
