@@ -18,8 +18,10 @@ class DatabaseSchemaEditor(DSE):
             "to_table": to_table,
             "to_column": to_column,
         }
-        print(self.sql_cascade, dir(field), field.__class__, field.target_field.__class__)
-        print(dir(model._meta), model._meta.fields)
+
+        if getattr(field, 'db_cascade', False):
+            print(self.sql_cascade)
+
         return self.sql_create_fk % {
             "table": self.quote_name(from_table),
             "name": self.quote_name(self._create_index_name(model, [from_column], suffix=suffix)),
