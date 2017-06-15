@@ -2,7 +2,7 @@ from django.db.backends.postgresql_psycopg2.schema import DatabaseSchemaEditor a
 
 class DatabaseSchemaEditor(DSE):
 
-    sql_cascade = "ON DELETE CASCADE"
+    sql_cascade = " ON DELETE CASCADE "
 
     sql_create_fk = (
         "ALTER TABLE %(table)s ADD CONSTRAINT %(name)s FOREIGN KEY (%(column)s) "
@@ -18,6 +18,7 @@ class DatabaseSchemaEditor(DSE):
             "to_table": to_table,
             "to_column": to_column,
         }
+        print(self.sql_cascade, dir(field))
 
         return self.sql_create_fk % {
             "table": self.quote_name(from_table),
