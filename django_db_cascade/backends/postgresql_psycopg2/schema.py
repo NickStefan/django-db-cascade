@@ -22,6 +22,12 @@ class DatabaseSchemaEditor(DSE):
         if getattr(field, 'db_cascade', False):
             print(self.sql_cascade)
 
+        try:
+            print(field.db_cascade)
+            print(self.sql_cascade)
+        except:
+            pass
+
         return self.sql_create_fk % {
             "table": self.quote_name(from_table),
             "name": self.quote_name(self._create_index_name(model, [from_column], suffix=suffix)),
