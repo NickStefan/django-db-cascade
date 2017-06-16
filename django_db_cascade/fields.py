@@ -1,10 +1,13 @@
-from django.db.models import ForeignKey as FK
-from django.db.models import OneToOneField as OTO
+from django.db.models import ForeignKey as FK, OneToOneField as OTO, DO_NOTHING
 from django_db_cascade.deletions import DB_CASCADE
 
 class ForeignKey(FK):
     def __init__(self, to, on_delete, **kwargs):
-        self.on_delete_db_cascade = True if on_delete == DB_CASCADE else False
+        if on_delete == DB_CASCADE:
+            self.on_delete_db_cascade = True
+            on_delete = DO_NOTHING
+        else:
+            self.on_delete_db_cascade = False
         super().__init__(to, on_delete, **kwargs)
 
     def deconstruct(self):
@@ -15,7 +18,11 @@ class ForeignKey(FK):
 
 class OneToOneField(OTO):
     def __init__(self, to, on_delete, **kwargs):
-        self.on_delete_db_cascade = True if on_delete == DB_CASCADE else False
+        if on_delete == DB_CASCADE:
+            self.on_delete_db_cascade = True
+            on_delete = DO_NOTHING
+        else:
+            self.on_delete_db_cascade = False
         super().__init__(to, on_delete, **kwargs)
 
     def deconstruct(self):
