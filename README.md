@@ -16,7 +16,7 @@ DATABASES = {
 ### Usage
 ```
 from django.db import models
-from django_db_cascade.fields import ForeignKey
+from django_db_cascade.fields import ForeignKey, OneToOneField
 from django_db_cascade.deletions import DB_CASCADE
 
 class Thing(Common):
