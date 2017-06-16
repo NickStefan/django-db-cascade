@@ -24,15 +24,15 @@ class Thing(Common):
 ```
 
 ### Caveats
-- CASCADE_DB only supports Postgres
-- CASCADE_DB does not support django on_delete signals
-- CASCADE_DB will not cascade delete multiple inherited tables as expected
-- CASCADE_DB will not trigger models.CASCADE on another model. E.g. Model A points to model B, via CASCADE_DB. Model B points to model C, via CASCADE. A will cascade delete B, but B will not cascade delete C.
+- DB_CASCADE only supports Postgres
+- DB_CASCADE does not support django on_delete signals
+- DB_CASCADE will not cascade delete multiple inherited tables as expected
+- DB_CASCADE will not trigger CASCADE on another model. E.g. Model A points to model B, via DB_CASCADE. Model B points to model C, via CASCADE. A will cascade delete B, B will django delete C, but __deleting A will not delete C__!
 
 ### How it works
 1. Minimal subclassing of the django postgresql backend and the django ForeignKey field
-3. Added a new possible value for ForeignKey's on_delete kwarg, called CASCADE_DB
-4. When you use CASCADE_DB, the migration framework will recognize a change, and write new sql
+3. Added a new possible value for ForeignKey's on_delete kwarg, called DB_CASCADE
+4. When you use DB_CASCADE, the migration framework will recognize a change, and write new sql
 6. example SQL generated:
     ```
     ALTER TABLE mytable ADD CONSTRAINT myconstraint FOREIGN KEY (mycolumn)

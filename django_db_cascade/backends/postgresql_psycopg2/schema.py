@@ -33,5 +33,5 @@ class DatabaseSchemaEditor(DSE):
             "to_table": self.quote_name(to_table),
             "to_column": self.quote_name(to_column),
             "deferrable": self.connection.ops.deferrable_sql(),
-            "on_delete": self._create_on_delete_sql(*args, **kwargs)
+            "on_delete": self._create_on_delete_sql(model, field, suffix)
         }
