@@ -28,6 +28,7 @@ class Thing(Common):
 - DB_CASCADE does not support django on_delete signals
 - DB_CASCADE will not cascade delete multiple inherited tables as expected
 - DB_CASCADE will not trigger CASCADE on another model. E.g. Model A points to model B, via DB_CASCADE. Model B points to model C, via CASCADE. A will cascade delete B, B will django delete C, but __deleting A will not delete C__!
+- DB_CASCADE on a ManyToMany of A <---> B, only A_B set records will be cascade deleted (deleting A will not delete B)
 
 ### How it works
 1. Minimal subclassing of the django postgresql backend and the django ForeignKey field
