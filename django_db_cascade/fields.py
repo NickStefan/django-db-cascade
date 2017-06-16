@@ -19,7 +19,7 @@ class OneToOneField(OTO):
         super().__init__(to, on_delete, **kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super(ForeignKey, self).deconstruct()
+        name, path, args, kwargs = super(OneToOneField, self).deconstruct()
         if self.on_delete_db_cascade:
             kwargs['on_delete'] = DB_CASCADE
         return name, path, args, kwargs
