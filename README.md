@@ -23,6 +23,12 @@ class Thing(Common):
     account = ForeignKey('self', DB_CASCADE)
 ```
 
+# Caveats
+- currently only supports the postgresql backend
+- django delete signals will not fire
+- multi table inherited models will not cascade properly
+- if model A points to model B using CASCADE_DB, A will delete B, but B may not delete C if B points to C using just CASCADE
+
 # How it works
 1. subclassed the postgresql backend
 2. subclassed the foreign key field

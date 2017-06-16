@@ -9,5 +9,5 @@ class ForeignKey(FK):
     def deconstruct(self):
         name, path, args, kwargs = super(ForeignKey, self).deconstruct()
         if self.on_delete_db_cascade:
-            kwargs['on_delete_db_cascade'] = DB_CASCADE
+            kwargs['on_delete'] = DB_CASCADE
         return name, path, args, kwargs
