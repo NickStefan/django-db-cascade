@@ -23,26 +23,24 @@ class Thing(Common):
     account = ForeignKey('self', DB_CASCADE)
 ```
 
-# Caveats
-- currently only supports the postgresql backend
-- django delete signals will not fire
-- multi table inherited models will not cascade properly
-- if model A points to model B using CASCADE_DB, A will delete B, but B may not delete C if B points to C using just CASCADE
+### Caveats
+- CASCADE_DB only supports Postgres
+- CASCADE_DB does not support django on_delete signals
+- CASCADE_DB will not cascade delete multiple inherited tables as expected
+- CASCADE_DB will not trigger models.CASCADE on another model. E.g. Model A points to model B, via CASCADE_DB. Model B points to model C, via CASCADE. A will cascade delete B, but B will not cascade delete C.
 
-# How it works
-1. subclassed the postgresql backend
-2. subclassed the foreign key field
-3. implemented a constant called DB_CASCADE
-4. django migration framework recognizes the model field inputs have changed
-5. django generates a migration which rewrites the foreign key SQL for the field
+### How it works
+1. Minimal subclassing of the django postgresql backend and the django ForeignKey field
+3. Added a new possible value for ForeignKey's on_delete kwarg, called CASCADE_DB
+4. When you use CASCADE_DB, the migration framework will recognize a change, and write new sql
 6. example SQL generated:
     ```
     ALTER TABLE mytable ADD CONSTRAINT myconstraint FOREIGN KEY (mycolumn)
     REFERENCES myothertable myothercolumn ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED
     ```
 
-# Future proof
-If, and when, on_cascade_db ever gets into django, editing these generated migrations should be very easy.
+### Future proof
+If, and when, DB_CASCADE ever gets into django, editing these generated migrations should be very easy.
 
 Generated migrations:
 ```
@@ -53,7 +51,7 @@ migrations.AlterField(
 )
 ```
 
-Changing them over, if django ever handles on_delete_db natively, might look like:
+Changing them over, if django ever handles DB_CASCADE natively, might look like:
 ```
 migrations.AlterField(
     model_name='modelname',
@@ -62,6 +60,6 @@ migrations.AlterField(
 )
 ```
 
-# Ticket
-The ticker where django has discussed bringing on_delete_db to django:
+### Ticket
+The ticker where django has discussed bringing DB_CASCADE to django:
 https://code.djangoproject.com/ticket/21961
