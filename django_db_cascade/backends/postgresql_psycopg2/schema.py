@@ -28,7 +28,7 @@ class DatabaseSchemaEditor(DSE):
 
         return self.sql_create_fk % {
             "table": self.quote_name(from_table),
-            "name": self.quote_name(self._create_index_name(model, [from_column], suffix=suffix)),
+            "name": self.quote_name(self._create_index_name(from_table, [from_column], suffix=suffix)),
             "column": self.quote_name(from_column),
             "to_table": self.quote_name(to_table),
             "to_column": self.quote_name(to_column),
