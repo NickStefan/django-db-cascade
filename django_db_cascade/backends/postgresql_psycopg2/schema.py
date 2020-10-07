@@ -1,4 +1,4 @@
-from django.db.backends.postgresql_psycopg2.schema import DatabaseSchemaEditor as DSE
+from django.db.backends.postgresql.schema import DatabaseSchemaEditor as DSE
 
 class DatabaseSchemaEditor(DSE):
 
