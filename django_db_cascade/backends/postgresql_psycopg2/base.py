@@ -3,4 +3,3 @@ from .schema import DatabaseSchemaEditor
 
 class DatabaseWrapper(DBW):
     SchemaEditorClass = DatabaseSchemaEditor
-
