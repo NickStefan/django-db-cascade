@@ -4,7 +4,7 @@
 `pip install django-db-cascade-2`
 
 ### Installation for Django 2
-`pip install django-db-cascade-2==0.2.2`
+`pip install django-db-cascade-2==0.2.3`
 
 settings.py:
 ```
