@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-db-cascade-2"
+description = "Fork of django-db-cascade for Django 2.0.  Optionally use postgres db ON CASCADE DELETE on django foreign keys"
+readme = "README.md"
+version = "0.3.2"
+authors = [
+  { name="Jordan Kapelner", email="test@test.com" },
+]
+maintainers = [
+    { name="Usama Mehmood", email="test2@test.com" },
+]
+license = {text = "MIT"}
+classifiers = [
+    "Framework :: Django",
+    "Topic :: Database",
+]
+dependencies = [
+    "Django >= 2.0",
+    'psycopg2 >= 2.5',
+]
+
+[project.urls]
+"Homepage" = "http://github.com/jkapelner/django-db-cascade-2"
+"Bug Tracker" = "http://github.com/jkapelner/django-db-cascade-2/issues"
+
+[tool.setuptools]
+zip-safe = false

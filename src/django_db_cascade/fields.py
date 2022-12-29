@@ -2,7 +2,7 @@ from django.db.models import (
     ForeignKey as FK, OneToOneField as OTO,
     DO_NOTHING
 )
-from django_db_cascade.deletions import DB_CASCADE, DB_SET_NULL
+from .deletions import DB_CASCADE, DB_SET_NULL
 
 ### in actual django source we could just edit the class ForeignObject
 
