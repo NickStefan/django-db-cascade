@@ -1,4 +1,6 @@
 from django.db.backends.postgresql_psycopg2.schema import DatabaseSchemaEditor as DSE
+from django.db.models import ForeignKey
+
 
 class DatabaseSchemaEditor(DSE):
 
@@ -40,3 +42,13 @@ class DatabaseSchemaEditor(DSE):
             "deferrable": self.connection.ops.deferrable_sql(),
             "on_delete": self._create_on_delete_sql(model, field, suffix)
         }
+
+    def _alter_field(self, model, old_field, new_field, old_type, new_type,
+                     old_db_params, new_db_params, strict=False):
+        super(DatabaseSchemaEditor, self)._alter_field(model=model, old_field=old_field, new_field=new_field,
+                                                       old_type=old_type, new_type=new_type,
+                                                       old_db_params=old_db_params, new_db_params=new_db_params,
+                                                       strict=strict)
+
+        if new_field.db_constraint and isinstance(new_field, ForeignKey):
+            self.execute(self._create_fk_sql(model, new_field, "_fk_%(to_table)s_%(to_column)s"))
