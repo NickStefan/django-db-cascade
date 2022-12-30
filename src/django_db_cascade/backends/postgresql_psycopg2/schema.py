@@ -52,3 +52,6 @@ class DatabaseSchemaEditor(DSE):
 
         if new_field.db_constraint and isinstance(new_field, ForeignKey):
             self.execute(self._create_fk_sql(model, new_field, "_fk_%(to_table)s_%(to_column)s"))
+
+            if new_field.db_index:
+                self.execute(self._create_index_sql(model=model, fields=[new_field]))
